@@ -10,5 +10,5 @@ void ConsoleHelper::CreateConsole()
     freopen_s(&fDummy, "CONOUT$", "w", stderr);
     freopen_s(&fDummy, "CONOUT$", "w", stdout);
 
-    std::cout << "Reikeuseu packet sniffer hooked." << std::endl;
+    std::cout << "------------- Etaine Packet Sniffer hooked -------------" << std::endl;
 }

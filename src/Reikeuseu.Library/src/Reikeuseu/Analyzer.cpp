@@ -40,6 +40,8 @@ vector<string> Analyzer::Packets = vector<string>();
 
 vector<bool> Analyzer::PacketSelection = vector<bool>();
 
+int Analyzer::DisplayType = 0;
+
 unsigned short Analyzer::MaxPacketCount = 50;
 
 void __cdecl Analyzer::Initialize()
@@ -60,24 +62,42 @@ void __cdecl Analyzer::Initialize()
 	ConsoleHelper::CreateConsole();
 }
 
-//static void AddReceivedPacket(Packet* packet);
-//static void AddSentPacket(Packet* packet);
 
 void Analyzer::AddInOutPacket(Packet* packet) {
 	stringstream sStream;
 
 	sStream << packet->Type << ">> 0x" << hex << setw(4) << setfill('0') << uppercase << packet->Opcode << " ";
 
-	for (size_t i = 0; i < packet->Length - 2; i++)
+	if (DisplayType == 0) // HEX
 	{
-		sStream << hex << setw(2) << setfill('0') << uppercase << (int)packet->Data[i] << " ";
+		for (size_t i = 0; i < packet->Length - 2; i++)
+		{
+			sStream << hex << setw(2) << setfill('0') << uppercase << (int)packet->Data[i] << " ";
+		}
+	}
+	else if (DisplayType == 1) // Decimal
+	{
+		for (size_t i = 0; i < packet->Length - 2; i++)
+		{
+			sStream << dec << setw(3) << setfill('0') << (int)packet->Data[i] << " ";
+		}
+	}
+	else // ASCII
+	{
+		for (size_t j = 0; j < packet->Length - 2; j++)
+		{
+			if ((int)packet->Data[j] != 0) {
+				sStream << packet->Data[j] << " ";
+			}
+			else {
+				sStream << "|| ";
+			}
+		}
 	}
 
 	sStream << endl;
 
 	string packetString = sStream.str();
-
-	
 
 	// Remove first element if there are more than MaxPacketCount packets
 	if (InOutPackets.size() > MaxPacketCount)
@@ -95,7 +115,6 @@ void Analyzer::AddInOutPacket(Packet* packet) {
 void __cdecl Analyzer::sendPacketHook(unsigned char* buffer, unsigned int bufferLength)
 {
 	Packet* packet = new Packet((char*)"SEND", buffer, bufferLength);
-
 
 	AddInOutPacket(packet);
 

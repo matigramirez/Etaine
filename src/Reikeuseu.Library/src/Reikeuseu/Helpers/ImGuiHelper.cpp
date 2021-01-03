@@ -9,6 +9,7 @@
 #include "imgui/imgui_impl_dx9.h"
 #include <Reikeuseu/Helpers/ImGuiHelper.h>
 #include <Reikeuseu/Analyzer.h>
+#include <Reikeuseu/Faker.h>
 #include <iostream>
 #include <iomanip>
 #include <sstream>
@@ -102,9 +103,32 @@ long __stdcall hkEndScene(LPDIRECT3DDEVICE9 pDevice)
 
 			sStream << Analyzer::InOutPackets[i]->Type << ">> 0x" << hex << setw(4) << setfill('0') << uppercase << Analyzer::InOutPackets[i]->Opcode << " ";
 
-			for (size_t j = 0; j < Analyzer::InOutPackets[i]->Length - 2; j++)
+			if (Analyzer::DisplayType == 0) // HEX
 			{
-				sStream << hex << setw(2) << setfill('0') << uppercase << (int)Analyzer::InOutPackets[i]->Data[j] << " ";
+				for (size_t j = 0; j < Analyzer::InOutPackets[i]->Length - 2; j++)
+				{
+					sStream << hex << setw(2) << setfill('0') << uppercase << (int)Analyzer::InOutPackets[i]->Data[j] << " ";
+				}
+
+			}
+			else if (Analyzer::DisplayType == 1)  // Decimal
+			{
+				for (size_t j = 0; j < Analyzer::InOutPackets[i]->Length - 2; j++)
+				{
+					sStream << dec << setw(3) << setfill('0') << (int)Analyzer::InOutPackets[i]->Data[j] << " ";
+				}
+			}
+			else  // ASCII
+			{
+				for (size_t j = 0; j < Analyzer::InOutPackets[i]->Length - 2; j++)
+				{
+					if ((int)Analyzer::InOutPackets[i]->Data[j] != 0) {
+						sStream << Analyzer::InOutPackets[i]->Data[j] << " ";
+					}
+					else {
+						sStream << "|| ";
+					}
+				}
 			}
 
 			sStream << endl;
@@ -151,15 +175,50 @@ long __stdcall hkEndScene(LPDIRECT3DDEVICE9 pDevice)
 		if (ImGui::Button("Copy Selection"))
 		{
 			ImGui::LogToClipboard();
-			
+
 			for (size_t i = 0; i < Analyzer::Packets.size(); i++)
 			{
-				if(Analyzer::PacketSelection[i])
+				if (Analyzer::PacketSelection[i])
 					ImGui::LogText(Analyzer::Packets[i].c_str());
 			}
 
 			ImGui::LogFinish();
 		}
+
+		ImGui::SameLine();
+
+		ImGui::RadioButton("Hex", &Analyzer::DisplayType, 0);
+		ImGui::SameLine();
+		ImGui::RadioButton("Decimal", &Analyzer::DisplayType, 1);
+		ImGui::SameLine();
+		ImGui::RadioButton("ASCII", &Analyzer::DisplayType, 2);
+
+		static char fakePacketBuffer[2048] = "";
+		static char parsedFakePacketBuffer[2048] = "";
+		ImGui::InputText("", fakePacketBuffer, IM_ARRAYSIZE(fakePacketBuffer));
+		ImGui::SameLine();
+
+		if (ImGui::Button("Fake Send (pending)")) {
+			stringstream ss;
+			ss << fakePacketBuffer;
+
+			string temp = ss.str();
+			unsigned char* val = new unsigned char[temp.length() + 1];
+			strcpy((char*)val, temp.c_str());
+
+			for (size_t i = 0; i < temp.length(); i++)
+			{
+				cout << val[i];
+			}
+
+			cout << endl;
+
+			Faker::fakeSendPacket(val, temp.length() + 1);
+		}
+
+		ImGui::SameLine();
+		ImGui::Button("Fake Receive (pending)");
+		//ImGui::InputText("", parsedFakePacketBuffer, IM_ARRAYSIZE(parsedFakePacketBuffer));
 
 
 		//// START: String version

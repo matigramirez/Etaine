@@ -30,6 +30,7 @@ public:
 	static std::vector<std::string> Packets;
 	static std::vector<bool> PacketSelection;
 	static unsigned short MaxPacketCount;
+	static int DisplayType;
 
 private:
 	/// <summary>

@@ -2,6 +2,15 @@
 #include <iostream>
 #include <thread>
 #include <Reikeuseu/Analyzer.h>
+#include <Reikeuseu/Helpers/ImGuiHelper.h>
+
+DWORD WINAPI MainThread(LPVOID lpReserved)
+{
+    ImGuiHelper::Initialize();
+    Analyzer::Initialize();
+
+    return TRUE;
+}
 
 /// <summary>
 ///  Defines the entry method of the dll
@@ -18,7 +27,8 @@ BOOL APIENTRY DllMain(HMODULE hModule,
     switch (ul_reason_for_call)
     {
     case DLL_PROCESS_ATTACH:
-        Analyzer::Initialize();
+        DisableThreadLibraryCalls(hModule);
+        CreateThread(nullptr, 0, MainThread, hModule, 0, nullptr);
         break;
     case DLL_THREAD_ATTACH:
     case DLL_THREAD_DETACH:

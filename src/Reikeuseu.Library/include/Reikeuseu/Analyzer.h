@@ -1,13 +1,33 @@
 #pragma once
 #ifndef REIKEUSEU_ANALYZER_H
 #define REIKEUSEU_ANALYZER_H
+
+#include <vector> 
+#include <string>
+#include "Packets/Packet.h"
+
+// Definition for the game's original send packet function
+typedef void(__cdecl* _sendPacket)(unsigned char* buffer, unsigned int bufferLength);
+
+// Definition for the game's original receive packet function
+typedef void(__cdecl* _receivePacket)(unsigned char* buffer, int bufferLength);
+
+// Definition for the game's original handle packet function
+typedef void(__cdecl* _handlePacket)(unsigned short opcode, unsigned char* buffer);
+
 class Analyzer
 {
 public:
 	/// <summary>
 	/// Hooks all the functions 
 	/// </summary>
-	static void Initialize();
+	static void __cdecl Initialize();
+	static _sendPacket originalSendPacket;
+	static _receivePacket originalReceivePacket;
+	static _handlePacket originalHandlePacket;
+	static std::vector<Packet*> InOutPackets;
+	static void AddInOutPacket(Packet* packet);
+	static std::vector<std::string> Packets;
 
 private:
 	/// <summary>

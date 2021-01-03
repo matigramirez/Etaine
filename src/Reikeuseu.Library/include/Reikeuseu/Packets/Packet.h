@@ -10,12 +10,15 @@ public:
 	Packet(Packet const&) = delete;
 	Packet& operator=(Packet const&) = delete;
 	
+	char* Type;
+
 	unsigned short Opcode;
 
 	unsigned char* Data;
 
-	Packet(unsigned short packetType, unsigned char* buffer, unsigned int length);
-	Packet(unsigned char* buffer, unsigned int length);
+	unsigned int Length;
+
+	Packet(char* type, unsigned char* buffer, unsigned int length);
 
 private:
 

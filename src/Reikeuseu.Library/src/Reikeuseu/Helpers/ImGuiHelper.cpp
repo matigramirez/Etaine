@@ -13,6 +13,8 @@
 #include <iomanip>
 #include <sstream>
 
+using namespace std;
+
 #define WINDOW_NAME "Dear ImGui DirectX9 Example"
 
 typedef long(__stdcall* EndScene)(LPDIRECT3DDEVICE9);
@@ -87,48 +89,94 @@ long __stdcall hkEndScene(LPDIRECT3DDEVICE9 pDevice)
 
 		ImGui::Begin("Etaine Packet Sniffer");
 
-		static int n = 1;
 		ImGui::BeginChild("Scrolling");
 
-		//for (int i = 0; i < Analyzer::InOutPackets.size(); i++) {
-		//	std::stringstream sStream;
 
-		//	for (size_t j = 0; j < Analyzer::InOutPackets[i]->Length - 2; j++)
-		//	{
-		//		sStream << std::hex << std::setw(2) << std::setfill('0') << std::uppercase << (int)Analyzer::InOutPackets[i]->Data[j] << " ";
-		//	}
+		//static vector<bool> t = vector<bool>();
 
-		//	sStream << std::endl;
+		ImGuiWindowFlags window_flags = ImGuiWindowFlags_HorizontalScrollbar;
+		ImGui::BeginChild("Packets", ImVec2(ImGui::GetWindowContentRegionWidth(), 260), false, window_flags);
 
-		//	std::string s = sStream.str();
+		for (int i = 0; i < Analyzer::InOutPackets.size(); i++) {
+			stringstream sStream;
 
-		//	ImGui::Text("%s>> 0x%04X %s", Analyzer::InOutPackets[i]->Type, Analyzer::InOutPackets[i]->Opcode, s.c_str());
-		//}
+			sStream << Analyzer::InOutPackets[i]->Type << ">> 0x" << hex << setw(4) << setfill('0') << uppercase << Analyzer::InOutPackets[i]->Opcode << " ";
 
-		auto size = Analyzer::Packets.size();
+			for (size_t j = 0; j < Analyzer::InOutPackets[i]->Length - 2; j++)
+			{
+				sStream << hex << setw(2) << setfill('0') << uppercase << (int)Analyzer::InOutPackets[i]->Data[j] << " ";
+			}
+
+			sStream << endl;
+
+			string parsedPacket = sStream.str();
+
+			//ImGui::Text(s.c_str());
+
+			if (ImGui::Selectable(parsedPacket.c_str(), Analyzer::PacketSelection[i]))
+			{
+				if (!ImGui::GetIO().KeyCtrl)    // Clear selection when CTRL is not held
+				{
+					bool temp = (bool)Analyzer::PacketSelection[i];
+
+					Analyzer::PacketSelection = vector<bool>(Analyzer::PacketSelection.size(), false);
+
+					Analyzer::PacketSelection[i] = !(bool)temp;
+
+					cout << "cleared selected packets" << endl;
+				}
+				else {
+					Analyzer::PacketSelection[i] = !((bool)Analyzer::PacketSelection[i]);
+				}
+			}
+		}
+
+		ImGui::EndChild();
+
+
+		if (ImGui::Button("Copy All"))
+		{
+			ImGui::LogToClipboard();
+
+			for (size_t i = 0; i < Analyzer::Packets.size(); i++)
+			{
+				ImGui::LogText(Analyzer::Packets[i].c_str());
+			}
+
+			ImGui::LogFinish();
+		}
+
+		ImGui::SameLine();
+
+		if (ImGui::Button("Copy Selection"))
+		{
+			ImGui::LogToClipboard();
+			
+			for (size_t i = 0; i < Analyzer::Packets.size(); i++)
+			{
+				if(Analyzer::PacketSelection[i])
+					ImGui::LogText(Analyzer::Packets[i].c_str());
+			}
+
+			ImGui::LogFinish();
+		}
+
+
+		//// START: String version
+
+		//auto size = Analyzer::Packets.size();
 
 		//for (int i = 0; i < size; i++) {
 		//	ImGui::Text(Analyzer::Packets[i].c_str());
 		//}
 
-		for (int i = size - 1; i >= 0; i--) {
-			ImGui::Text(Analyzer::Packets[i].c_str());
-		}
+		//for (int i = size - 1; i >= 0; i--) {
+		//	ImGui::Text(Analyzer::Packets[i].c_str());
+		//}
 
-		//for (int i = 0; i < n; i++)
-		//	ImGui::Text("%04d: Some text", i);
+		//// END: String version
+
 		ImGui::EndChild();
-
-		if (ImGui::Button("Increment")) {
-			n++;
-		}
-
-		static int counter = 0;
-
-		if (ImGui::Button("Button"))                            // Buttons return true when clicked (most widgets return true when edited/activated)
-			counter++;
-		ImGui::SameLine();
-		ImGui::Text("counter = %d", counter);
 
 		ImGui::End();
 

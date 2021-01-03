@@ -28,6 +28,8 @@ public:
 	static std::vector<Packet*> InOutPackets;
 	static void AddInOutPacket(Packet* packet);
 	static std::vector<std::string> Packets;
+	static std::vector<bool> PacketSelection;
+	static unsigned short MaxPacketCount;
 
 private:
 	/// <summary>

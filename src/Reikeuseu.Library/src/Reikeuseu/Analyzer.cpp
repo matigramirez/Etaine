@@ -7,6 +7,8 @@
 #include <detours.h>
 #include <string>
 
+using namespace std;
+
 // Episode 1 function addresses
 // When hooking Ep1 functions, the receive packet function isn't needed because the handle packet function includes
 // the length of the packet. This means that the definition of the function needs to change so this addresses won't
@@ -32,9 +34,13 @@ _sendPacket Analyzer::originalSendPacket = (_sendPacket)(sendPacketAddressEp4);
 _receivePacket Analyzer::originalReceivePacket = (_receivePacket)(receivePacketAddressEp4);
 _handlePacket Analyzer::originalHandlePacket = (_handlePacket)(handlePacketAddressEp4);
 
-std::vector<Packet*> Analyzer::InOutPackets = std::vector<Packet*>();
+vector<Packet*> Analyzer::InOutPackets = vector<Packet*>();
 
-std::vector<std::string> Analyzer::Packets = std::vector<std::string>();
+vector<string> Analyzer::Packets = vector<string>();
+
+vector<bool> Analyzer::PacketSelection = vector<bool>();
+
+unsigned short Analyzer::MaxPacketCount = 50;
 
 void __cdecl Analyzer::Initialize()
 {
@@ -51,47 +57,47 @@ void __cdecl Analyzer::Initialize()
 	DetourTransactionCommit();
 
 	// Create console to log packets
-	//ConsoleHelper::CreateConsole();
+	ConsoleHelper::CreateConsole();
 }
 
 //static void AddReceivedPacket(Packet* packet);
 //static void AddSentPacket(Packet* packet);
 
 void Analyzer::AddInOutPacket(Packet* packet) {
-	std::stringstream sStream;
+	stringstream sStream;
 
-	sStream << packet->Type << ">> 0x" << std::hex << std::setw(4) << std::setfill('0') << std::uppercase << packet->Opcode << " ";
+	sStream << packet->Type << ">> 0x" << hex << setw(4) << setfill('0') << uppercase << packet->Opcode << " ";
 
 	for (size_t i = 0; i < packet->Length - 2; i++)
 	{
-		sStream << std::hex << std::setw(2) << std::setfill('0') << std::uppercase << (int)packet->Data[i] << " ";
+		sStream << hex << setw(2) << setfill('0') << uppercase << (int)packet->Data[i] << " ";
 	}
 
-	sStream << std::endl;
+	sStream << endl;
 
-	std::string str = sStream.str();
+	string packetString = sStream.str();
 
-	Analyzer::Packets.push_back(str);
-	//Analyzer::InOutPackets.push_back(packet);
+	
+
+	// Remove first element if there are more than MaxPacketCount packets
+	if (InOutPackets.size() > MaxPacketCount)
+	{
+		Packets.erase(Packets.begin());
+		InOutPackets.erase(InOutPackets.begin());
+		PacketSelection.erase(PacketSelection.begin());
+	}
+
+	Packets.push_back(packetString);
+	InOutPackets.push_back(packet);
+	PacketSelection.push_back(false);
 }
 
 void __cdecl Analyzer::sendPacketHook(unsigned char* buffer, unsigned int bufferLength)
 {
 	Packet* packet = new Packet((char*)"SEND", buffer, bufferLength);
 
-	std::cout << "SEND> OPCODE: 0x" << std::hex << std::setw(4) << std::setfill('0') << std::uppercase << packet->Opcode << std::endl;
 
-	std::cout << "Packet: ";
-	for (size_t i = 0; i < bufferLength - 2; i++)
-	{
-		std::cout << std::hex << std::setw(2) << std::setfill('0') << std::uppercase << (int)packet->Data[i] << " ";
-	}
-
-	std::cout << std::endl;
-
-	Analyzer::AddInOutPacket(packet);
-
-	delete packet;
+	AddInOutPacket(packet);
 
 	// Call original function
 	originalSendPacket(buffer, bufferLength);
@@ -101,43 +107,15 @@ void __cdecl Analyzer::receivePacketHook(unsigned char* encryptedBuffer, int buf
 	// Set buffer length for the handle packet hook
 	lastBufferLength = bufferLength;
 
-	std::cout << "Received buffer. Length: " << lastBufferLength << std::endl;
-
 	// Call original function
 	originalReceivePacket(encryptedBuffer, bufferLength);
 }
 
 void __cdecl Analyzer::handlePacketHook(unsigned short opcode, unsigned char* buffer)
 {
-	// Check that the receive packet hook has defined the buffer's length
-	if (lastBufferLength != 0) {
-		Packet* packet = new Packet((char*)"RECV", buffer, lastBufferLength);
+	Packet* packet = new Packet((char*)"RECV", buffer, lastBufferLength);
 
-		std::cout << "RECV> OPCODE: 0x" << std::hex << std::setw(4) << std::setfill('0') << std::uppercase << packet->Opcode << std::endl;
-
-		std::cout << "Packet: ";
-
-		for (size_t i = 0; i < lastBufferLength - 2; i++)
-		{
-			std::cout << std::hex << std::setw(2) << std::setfill('0') << std::uppercase << (int)packet->Data[i] << " ";
-		}
-
-		std::cout << std::endl;
-
-		Analyzer::AddInOutPacket(packet);
-
-		delete packet;
-	}
-	else {
-		Packet* packet = new Packet((char*)"RECV", buffer, 2);
-
-		std::cout << "RECV> opcode: 0x" << std::hex << std::setw(4) << std::setfill('0') << std::uppercase << packet->Opcode;
-		std::cout << "Couldn't determine buffer size" << std::endl;
-
-		Analyzer::AddInOutPacket(packet);
-
-		delete packet;
-	}
+	AddInOutPacket(packet);
 
 	// Buffer length is reset because it will be different on the next packet
 	lastBufferLength = 0;

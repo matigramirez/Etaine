@@ -48,8 +48,8 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>D:\vcpkg\packages\detours_x86-windows\include\detours;../Reikeuseu.Library/include;$(IncludePath)</IncludePath>
-    <LibraryPath>D:\vcpkg\packages\detours_x86-windows\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>..\..\packages\detours\include\detours;../Reikeuseu.Library/include;$(IncludePath)</IncludePath>
+    <LibraryPath>..\..\packages\detours\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -65,7 +65,7 @@
       <ConformanceMode>false</ConformanceMode>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
-      <AdditionalIncludeDirectories>D:\vcpkg\packages\detours_x86-windows\include\detours;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\packages\detours\include\detours;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <Optimization>MaxSpeed</Optimization>
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>
@@ -74,8 +74,8 @@
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableUAC>false</EnableUAC>
-      <AdditionalDependencies>D:\vcpkg\packages\detours_x86-windows\lib\detours.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>D:\vcpkg\packages\detours_x86-windows\lib\detours.lib;</AdditionalLibraryDirectories>
+      <AdditionalDependencies>..\..\packages\detours\lib\detours.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>..\..\packages\detours\lib\detours.lib</AdditionalLibraryDirectories>
       <CLRUnmanagedCodeCheck>false</CLRUnmanagedCodeCheck>
     </Link>
   </ItemDefinitionGroup>

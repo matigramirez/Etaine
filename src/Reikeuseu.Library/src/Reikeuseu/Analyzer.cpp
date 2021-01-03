@@ -59,7 +59,7 @@ void __cdecl Analyzer::Initialize()
 	DetourTransactionCommit();
 
 	// Create console to log packets
-	ConsoleHelper::CreateConsole();
+	//ConsoleHelper::CreateConsole();
 }
 
 

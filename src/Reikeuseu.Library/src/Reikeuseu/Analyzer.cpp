@@ -21,6 +21,11 @@ DWORD sendPacketAddressEp4 = 0x00585640;
 DWORD receivePacketAddressEp4 = 0x004010E0;
 DWORD handlePacketAddressEp4 = 0x00582E10;
 
+// Episode 6 function addresses
+DWORD sendPacketAddressEp6 = 0x005EA9A0;
+DWORD receivePacketAddressEp6 = 0x00401080;
+DWORD handlePacketAddressEp6 = 0x005F1E10;
+
 // Episode 8 function addresses
 DWORD sendPacketAddressEp8 = 0x00661020;
 DWORD receivePacketAddressEp8 = 0x00401110;
@@ -30,9 +35,9 @@ DWORD handlePacketAddressEp8 = 0x006687B0;
 unsigned int lastBufferLength = 0;
 
 // Define starting addresses of the game's functions
-_sendPacket Analyzer::originalSendPacket = (_sendPacket)(sendPacketAddressEp4);
-_receivePacket Analyzer::originalReceivePacket = (_receivePacket)(receivePacketAddressEp4);
-_handlePacket Analyzer::originalHandlePacket = (_handlePacket)(handlePacketAddressEp4);
+_sendPacket Analyzer::originalSendPacket = (_sendPacket)(sendPacketAddressEp8);
+_receivePacket Analyzer::originalReceivePacket = (_receivePacket)(receivePacketAddressEp8);
+_handlePacket Analyzer::originalHandlePacket = (_handlePacket)(handlePacketAddressEp8);
 
 vector<Packet*> Analyzer::InOutPackets = vector<Packet*>();
 

@@ -1,6 +1,6 @@
 #pragma once
-#ifndef REIKEUSEU_PACKETS_PACKET_H
-#define REIKEUSEU_PACKETS_PACKET_H
+#ifndef Etaine_PACKETS_PACKET_H
+#define Etaine_PACKETS_PACKET_H
 #include <vector>
 
 class Packet
@@ -11,6 +11,8 @@ public:
 	Packet& operator=(Packet const&) = delete;
 	
 	char* Type;
+
+	unsigned char* Buffer;
 
 	unsigned short Opcode;
 

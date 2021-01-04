@@ -1,10 +1,13 @@
-#include <Reikeuseu/Packets/Packet.h>
+#include <Etaine/Packets/Packet.h>
 #include <vector>
 #include <iostream>
 
 Packet::Packet(char* type, unsigned char* buffer, unsigned int length)
 {
 	this->Type = type;
+
+	this->Buffer = buffer;
+
 	this->Opcode = *reinterpret_cast<unsigned short*>(buffer);
 
 	this->Data = new unsigned char[length];

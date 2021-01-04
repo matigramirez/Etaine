@@ -1,6 +1,6 @@
 #pragma once
-#ifndef REIKEUSEU_FAKER_H
-#define REIKEUSEU_FAKER_H
+#ifndef Etaine_FAKER_H
+#define Etaine_FAKER_H
 
 class Faker
 {

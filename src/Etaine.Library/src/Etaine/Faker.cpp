@@ -1,5 +1,5 @@
-#include <Reikeuseu/Faker.h>
-#include <Reikeuseu/Analyzer.h>
+#include <Etaine/Faker.h>
+#include <Etaine/Analyzer.h>
 #include <iostream>
 #include <iomanip>
 

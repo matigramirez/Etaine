@@ -1,6 +1,6 @@
-#include <Reikeuseu\Analyzer.h>
-#include <Reikeuseu\Helpers\ConsoleHelper.h>
-#include <Reikeuseu\Packets\Packet.h>
+#include <Etaine\Analyzer.h>
+#include <Etaine\Helpers\ConsoleHelper.h>
+#include <Etaine\Packets\Packet.h>
 #include <iostream>
 #include <iomanip>
 #include <sstream>
@@ -35,9 +35,9 @@ DWORD handlePacketAddressEp8 = 0x006687B0;
 unsigned int lastBufferLength = 0;
 
 // Define starting addresses of the game's functions
-_sendPacket Analyzer::originalSendPacket = (_sendPacket)(sendPacketAddressEp8);
-_receivePacket Analyzer::originalReceivePacket = (_receivePacket)(receivePacketAddressEp8);
-_handlePacket Analyzer::originalHandlePacket = (_handlePacket)(handlePacketAddressEp8);
+_sendPacket Analyzer::originalSendPacket = (_sendPacket)(sendPacketAddressEp4);
+_receivePacket Analyzer::originalReceivePacket = (_receivePacket)(receivePacketAddressEp4);
+_handlePacket Analyzer::originalHandlePacket = (_handlePacket)(handlePacketAddressEp4);
 
 vector<Packet*> Analyzer::InOutPackets = vector<Packet*>();
 

@@ -15,16 +15,16 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\Reikeuseu\Helpers\ConsoleHelper.h">
+    <ClInclude Include="include\Etaine\Helpers\ConsoleHelper.h">
       <Filter>Header files</Filter>
     </ClInclude>
-    <ClInclude Include="include\Reikeuseu\Analyzer.h">
+    <ClInclude Include="include\Etaine\Analyzer.h">
       <Filter>Header files</Filter>
     </ClInclude>
-    <ClInclude Include="include\Reikeuseu\Packets\Packet.h">
+    <ClInclude Include="include\Etaine\Packets\Packet.h">
       <Filter>Header files</Filter>
     </ClInclude>
-    <ClInclude Include="include\Reikeuseu\Faker.h">
+    <ClInclude Include="include\Etaine\Faker.h">
       <Filter>Header files</Filter>
     </ClInclude>
     <ClInclude Include="include\imgui\imstb_truetype.h">
@@ -78,21 +78,21 @@
     <ClInclude Include="include\kiero\minhook\include\MinHook.h">
       <Filter>Header files</Filter>
     </ClInclude>
-    <ClInclude Include="include\Reikeuseu\Helpers\ImGuiHelper.h">
+    <ClInclude Include="include\Etaine\Helpers\ImGuiHelper.h">
       <Filter>Header files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\Reikeuseu\Helpers\ConsoleHelper.cpp">
+    <ClCompile Include="src\Etaine\Helpers\ConsoleHelper.cpp">
       <Filter>Source files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Reikeuseu\Analyzer.cpp">
+    <ClCompile Include="src\Etaine\Analyzer.cpp">
       <Filter>Source files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Reikeuseu\Packets\Packet.cpp">
+    <ClCompile Include="src\Etaine\Packets\Packet.cpp">
       <Filter>Source files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Reikeuseu\Faker.cpp">
+    <ClCompile Include="src\Etaine\Faker.cpp">
       <Filter>Source files</Filter>
     </ClCompile>
     <ClCompile Include="include\imgui\imgui.cpp">
@@ -131,7 +131,7 @@
     <ClCompile Include="include\kiero\minhook\src\trampoline.c">
       <Filter>Source files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Reikeuseu\Helpers\ImGuiHelper.cpp">
+    <ClCompile Include="src\Etaine\Helpers\ImGuiHelper.cpp">
       <Filter>Source files</Filter>
     </ClCompile>
   </ItemGroup>

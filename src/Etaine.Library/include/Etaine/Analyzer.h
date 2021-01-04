@@ -1,6 +1,6 @@
 #pragma once
-#ifndef REIKEUSEU_ANALYZER_H
-#define REIKEUSEU_ANALYZER_H
+#ifndef Etaine_ANALYZER_H
+#define Etaine_ANALYZER_H
 
 #include <vector> 
 #include <string>

@@ -1,6 +1,6 @@
 #pragma once
-#ifndef REIKEUSEU_HELPERS_CONSOLE_H
-#define REIKEUSEU_HELPERS_CONSOLE_H
+#ifndef Etaine_HELPERS_CONSOLE_H
+#define Etaine_HELPERS_CONSOLE_H
 
 #include <Windows.h>
 

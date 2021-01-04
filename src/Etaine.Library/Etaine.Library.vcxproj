@@ -11,7 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\Reikeuseu\Helpers\ImGuiHelper.cpp" />
+    <ClCompile Include="src\Etaine\Helpers\ImGuiHelper.cpp" />
     <ClCompile Include="include\imgui\imgui.cpp" />
     <ClCompile Include="include\imgui\imgui_demo.cpp" />
     <ClCompile Include="include\imgui\imgui_draw.cpp" />
@@ -24,13 +24,13 @@
     <ClCompile Include="include\kiero\minhook\src\hde\hde64.c" />
     <ClCompile Include="include\kiero\minhook\src\hook.c" />
     <ClCompile Include="include\kiero\minhook\src\trampoline.c" />
-    <ClCompile Include="src\Reikeuseu\Faker.cpp" />
-    <ClCompile Include="src\Reikeuseu\Analyzer.cpp" />
-    <ClCompile Include="src\Reikeuseu\Helpers\ConsoleHelper.cpp" />
-    <ClCompile Include="src\Reikeuseu\Packets\Packet.cpp" />
+    <ClCompile Include="src\Etaine\Faker.cpp" />
+    <ClCompile Include="src\Etaine\Analyzer.cpp" />
+    <ClCompile Include="src\Etaine\Helpers\ConsoleHelper.cpp" />
+    <ClCompile Include="src\Etaine\Packets\Packet.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\Reikeuseu\Helpers\ImGuiHelper.h" />
+    <ClInclude Include="include\Etaine\Helpers\ImGuiHelper.h" />
     <ClInclude Include="include\imgui\imconfig.h" />
     <ClInclude Include="include\imgui\imgui.h" />
     <ClInclude Include="include\imgui\imgui_impl_dx9.h" />
@@ -48,10 +48,10 @@
     <ClInclude Include="include\kiero\minhook\src\hde\table32.h" />
     <ClInclude Include="include\kiero\minhook\src\hde\table64.h" />
     <ClInclude Include="include\kiero\minhook\src\trampoline.h" />
-    <ClInclude Include="include\Reikeuseu\Faker.h" />
-    <ClInclude Include="include\Reikeuseu\Analyzer.h" />
-    <ClInclude Include="include\Reikeuseu\Helpers\ConsoleHelper.h" />
-    <ClInclude Include="include\Reikeuseu\Packets\Packet.h" />
+    <ClInclude Include="include\Etaine\Faker.h" />
+    <ClInclude Include="include\Etaine\Analyzer.h" />
+    <ClInclude Include="include\Etaine\Helpers\ConsoleHelper.h" />
+    <ClInclude Include="include\Etaine\Packets\Packet.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="include\kiero\minhook\dll_resources\MinHook.def" />
@@ -63,9 +63,9 @@
     <VCProjectVersion>16.0</VCProjectVersion>
     <ProjectGuid>{2A7F7561-71FE-4593-91D9-B45DE087AEE1}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>ReikeuseuLibrary</RootNamespace>
+    <RootNamespace>EtaineLibrary</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
-    <ProjectName>Reikeuseu.Library</ProjectName>
+    <ProjectName>Etaine.Library</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">

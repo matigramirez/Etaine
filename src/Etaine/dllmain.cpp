@@ -1,8 +1,8 @@
 #include "pch.h"
 #include <iostream>
 #include <thread>
-#include <Reikeuseu/Analyzer.h>
-#include <Reikeuseu/Helpers/ImGuiHelper.h>
+#include <Etaine/Analyzer.h>
+#include <Etaine/Helpers/ImGuiHelper.h>
 
 DWORD WINAPI MainThread(LPVOID lpReserved)
 {

@@ -7,9 +7,9 @@
 #include "imgui/imgui.h"
 #include "imgui/imgui_impl_win32.h"
 #include "imgui/imgui_impl_dx9.h"
-#include <Reikeuseu/Helpers/ImGuiHelper.h>
-#include <Reikeuseu/Analyzer.h>
-#include <Reikeuseu/Faker.h>
+#include <Etaine/Helpers/ImGuiHelper.h>
+#include <Etaine/Analyzer.h>
+#include <Etaine/Faker.h>
 #include <iostream>
 #include <iomanip>
 #include <sstream>
@@ -213,7 +213,7 @@ long __stdcall hkEndScene(LPDIRECT3DDEVICE9 pDevice)
 
 			cout << endl;
 
-			Faker::fakeSendPacket(val, temp.length() + 1);
+			Faker::fakeSendPacket(Analyzer::InOutPackets[0]->Buffer, Analyzer::InOutPackets[0]->Length);
 		}
 
 		ImGui::SameLine();

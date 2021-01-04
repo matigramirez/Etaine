@@ -49,6 +49,10 @@ int Analyzer::DisplayType = 0;
 
 unsigned short Analyzer::MaxPacketCount = 50;
 
+bool Analyzer::LogSent = true;
+bool Analyzer::LogReceived = true;
+bool Analyzer::Active = true;
+
 void __cdecl Analyzer::Initialize()
 {
 	// Start detour transaction on current thread
@@ -64,11 +68,14 @@ void __cdecl Analyzer::Initialize()
 	DetourTransactionCommit();
 
 	// Create console to log packets
-	//ConsoleHelper::CreateConsole();
+	ConsoleHelper::CreateConsole();
 }
 
 
 void Analyzer::AddInOutPacket(Packet* packet) {
+	if (!Active)
+		return;
+
 	stringstream sStream;
 
 	sStream << packet->Type << ">> 0x" << hex << setw(4) << setfill('0') << uppercase << packet->Opcode << " ";
@@ -121,7 +128,10 @@ void __cdecl Analyzer::sendPacketHook(unsigned char* buffer, unsigned int buffer
 {
 	Packet* packet = new Packet((char*)"SEND", buffer, bufferLength);
 
-	AddInOutPacket(packet);
+	if (LogSent)
+		AddInOutPacket(packet);
+	else
+		delete packet;
 
 	// Call original function
 	originalSendPacket(buffer, bufferLength);
@@ -139,11 +149,20 @@ void __cdecl Analyzer::handlePacketHook(unsigned short opcode, unsigned char* bu
 {
 	Packet* packet = new Packet((char*)"RECV", buffer, lastBufferLength);
 
-	AddInOutPacket(packet);
+	if (LogReceived)
+		AddInOutPacket(packet);
+	else
+		delete packet;
 
 	// Buffer length is reset because it will be different on the next packet
 	lastBufferLength = 0;
 
 	// Call original function
 	originalHandlePacket(opcode, buffer);
+}
+
+void __cdecl Analyzer::ClearPackets() {
+	InOutPackets = vector<Packet*>();
+	Packets = vector<string>();
+	PacketSelection = vector<bool>();
 }

@@ -37,30 +37,6 @@ void InitImGui(LPDIRECT3DDEVICE9 pDevice)
 	ImGui_ImplDX9_Init(pDevice);
 }
 
-const char* string_to_hex(const char* str, char* hex, size_t maxlen)
-{
-	static const char* const lut = "0123456789ABCDEF";
-
-	if (str == NULL) return NULL;
-	if (hex == NULL) return NULL;
-	if (maxlen == 0) return NULL;
-
-	size_t len = strlen(str);
-
-	char* p = hex;
-
-	for (size_t i = 0; (i < len) && (i < (maxlen - 1)); ++i)
-	{
-		const unsigned char c = str[i];
-		*p++ = lut[c >> 4];
-		*p++ = lut[c & 15];
-	}
-
-	*p++ = 0;
-
-	return hex;
-}
-
 bool init = false;
 bool show = false;
 long __stdcall hkEndScene(LPDIRECT3DDEVICE9 pDevice)
@@ -91,9 +67,6 @@ long __stdcall hkEndScene(LPDIRECT3DDEVICE9 pDevice)
 		ImGui::Begin("Etaine Packet Sniffer");
 
 		ImGui::BeginChild("Scrolling");
-
-
-		//static vector<bool> t = vector<bool>();
 
 		ImGuiWindowFlags window_flags = ImGuiWindowFlags_HorizontalScrollbar;
 		ImGui::BeginChild("Packets", ImVec2(ImGui::GetWindowContentRegionWidth(), 260), false, window_flags);
@@ -157,6 +130,15 @@ long __stdcall hkEndScene(LPDIRECT3DDEVICE9 pDevice)
 
 		ImGui::EndChild();
 
+		ImGui::Checkbox("Activate", &Analyzer::Active);
+
+		ImGui::SameLine();
+
+		if (ImGui::Button("Clear")) {
+			Analyzer::ClearPackets();
+		}
+
+		ImGui::SameLine();
 
 		if (ImGui::Button("Copy All"))
 		{
@@ -192,6 +174,11 @@ long __stdcall hkEndScene(LPDIRECT3DDEVICE9 pDevice)
 		ImGui::RadioButton("Decimal", &Analyzer::DisplayType, 1);
 		ImGui::SameLine();
 		ImGui::RadioButton("ASCII", &Analyzer::DisplayType, 2);
+		ImGui::SameLine();
+		ImGui::Checkbox("Log Sent", &Analyzer::LogSent);
+		ImGui::SameLine();
+		ImGui::Checkbox("Log Received", &Analyzer::LogReceived);
+
 
 		static char fakePacketBuffer[2048] = "";
 		static char parsedFakePacketBuffer[2048] = "";
@@ -199,19 +186,19 @@ long __stdcall hkEndScene(LPDIRECT3DDEVICE9 pDevice)
 		ImGui::SameLine();
 
 		if (ImGui::Button("Fake Send (pending)")) {
-			stringstream ss;
-			ss << fakePacketBuffer;
+			//stringstream ss;
+			//ss << fakePacketBuffer;
 
-			string temp = ss.str();
-			unsigned char* val = new unsigned char[temp.length() + 1];
-			strcpy((char*)val, temp.c_str());
+			//string temp = ss.str();
+			//unsigned char* val = new unsigned char[temp.length() + 1];
+			//strcpy((char*)val, temp.c_str());
 
-			for (size_t i = 0; i < temp.length(); i++)
-			{
-				cout << val[i];
-			}
+			//for (size_t i = 0; i < temp.length(); i++)
+			//{
+			//	cout << val[i];
+			//}
 
-			cout << endl;
+			//cout << endl;
 
 			Faker::fakeSendPacket(Analyzer::InOutPackets[0]->Buffer, Analyzer::InOutPackets[0]->Length);
 		}

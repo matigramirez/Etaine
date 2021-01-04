@@ -31,6 +31,10 @@ public:
 	static std::vector<bool> PacketSelection;
 	static unsigned short MaxPacketCount;
 	static int DisplayType;
+	static bool LogSent;
+	static bool LogReceived;
+	static bool Active;
+	static void __cdecl ClearPackets();
 
 private:
 	/// <summary>

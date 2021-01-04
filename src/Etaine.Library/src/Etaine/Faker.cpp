@@ -6,7 +6,17 @@
 using namespace std;
 
 void __cdecl Faker::fakeSendPacket(unsigned char* pBuffer, unsigned int bufferLength) {
-	cout << "sending fake packet with length: " << bufferLength << endl;
+	cout << "******************* FAKE SEND *******************" << endl;
+
+	for (size_t i = 0; i < bufferLength; i++)
+	{
+		cout << hex << setw(2) << setfill('0') << uppercase << (int)pBuffer[i] << " ";
+	}
+
+	cout << endl;
+
+	cout << "*************************************************" << endl;
+
 	Analyzer::originalSendPacket(pBuffer, bufferLength);
 }
 

@@ -31,13 +31,15 @@ DWORD sendPacketAddressEp8 = 0x00661020;
 DWORD receivePacketAddressEp8 = 0x00401110;
 DWORD handlePacketAddressEp8 = 0x006687B0;
 
-// Initialize the buffer length for the received packets
-unsigned int lastBufferLength = 0;
+// Shaiya EG function addresses
+DWORD sendPacketAddressEG = 0x00676640;
+DWORD receivePacketAddressEG = 0x00401100;
+DWORD handlePacketAddressEG = 0x0067DF90;
 
 // Define starting addresses of the game's functions
-_sendPacket Analyzer::originalSendPacket = (_sendPacket)(sendPacketAddressEp4);
-_receivePacket Analyzer::originalReceivePacket = (_receivePacket)(receivePacketAddressEp4);
-_handlePacket Analyzer::originalHandlePacket = (_handlePacket)(handlePacketAddressEp4);
+_sendPacket Analyzer::originalSendPacket = (_sendPacket)(sendPacketAddressEp8);
+_receivePacket Analyzer::originalReceivePacket = (_receivePacket)(receivePacketAddressEp8);
+_handlePacket Analyzer::originalHandlePacket = (_handlePacket)(handlePacketAddressEp8);
 
 vector<Packet*> Analyzer::InOutPackets = vector<Packet*>();
 
@@ -52,6 +54,13 @@ unsigned short Analyzer::MaxPacketCount = 50;
 bool Analyzer::LogSent = true;
 bool Analyzer::LogReceived = true;
 bool Analyzer::Active = true;
+
+vector<Opcode*> Analyzer::LabeledOpcodes = vector<Opcode*>();
+
+vector<unsigned short> Analyzer::IgnoredOpcodes = vector<unsigned short>();
+
+// Initialize the buffer length for the received packets
+unsigned int lastBufferLength = 0;
 
 void __cdecl Analyzer::Initialize()
 {
@@ -128,6 +137,15 @@ void __cdecl Analyzer::sendPacketHook(unsigned char* buffer, unsigned int buffer
 {
 	Packet* packet = new Packet((char*)"SEND", buffer, bufferLength);
 
+	cout << packet->Type << ">> 0x" << hex << setw(4) << setfill('0') << uppercase << packet->Opcode << " ";
+
+	for (size_t i = 0; i < packet->Length - 2; i++)
+	{
+		cout << hex << setw(2) << setfill('0') << uppercase << (int)packet->Data[i] << " ";
+	}
+
+	cout << endl;
+
 	if (LogSent)
 		AddInOutPacket(packet);
 	else
@@ -148,6 +166,15 @@ void __cdecl Analyzer::receivePacketHook(unsigned char* encryptedBuffer, int buf
 void __cdecl Analyzer::handlePacketHook(unsigned short opcode, unsigned char* buffer)
 {
 	Packet* packet = new Packet((char*)"RECV", buffer, lastBufferLength);
+
+	cout << packet->Type << ">> 0x" << hex << setw(4) << setfill('0') << uppercase << packet->Opcode << " ";
+
+	for (size_t i = 0; i < packet->Length - 2; i++)
+	{
+		cout << hex << setw(2) << setfill('0') << uppercase << (int)packet->Data[i] << " ";
+	}
+
+	cout << endl;
 
 	if (LogReceived)
 		AddInOutPacket(packet);

@@ -11,6 +11,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Etaine\Packets\Opcode.cpp" />
+    <ClCompile Include="src\Etaine\Helpers\FileHelper.cpp" />
     <ClCompile Include="src\Etaine\Helpers\ImGuiHelper.cpp" />
     <ClCompile Include="include\imgui\imgui.cpp" />
     <ClCompile Include="include\imgui\imgui_demo.cpp" />
@@ -30,6 +32,7 @@
     <ClCompile Include="src\Etaine\Packets\Packet.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\Etaine\Helpers\FileHelper.h" />
     <ClInclude Include="include\Etaine\Helpers\ImGuiHelper.h" />
     <ClInclude Include="include\imgui\imconfig.h" />
     <ClInclude Include="include\imgui\imgui.h" />
@@ -52,6 +55,7 @@
     <ClInclude Include="include\Etaine\Analyzer.h" />
     <ClInclude Include="include\Etaine\Helpers\ConsoleHelper.h" />
     <ClInclude Include="include\Etaine\Packets\Packet.h" />
+    <ClInclude Include="include\Etaine\Packets\Opcode.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="include\kiero\minhook\dll_resources\MinHook.def" />

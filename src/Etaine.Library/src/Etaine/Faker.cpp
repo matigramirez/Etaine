@@ -2,25 +2,36 @@
 #include <Etaine/Analyzer.h>
 #include <iostream>
 #include <iomanip>
+#include <Windows.h>
 
 using namespace std;
 
-void __cdecl Faker::fakeSendPacket(unsigned char* pBuffer, unsigned int bufferLength) {
-	cout << "******************* FAKE SEND *******************" << endl;
+void __cdecl Faker::fakeSendPacket(char* fakePacketBuffer) {
+	int size = 0;
+	int length = strlen(fakePacketBuffer);
 
-	for (size_t i = 0; i < bufferLength; i++)
+	if (length < 4)
+		return;
+
+		size = ((length - 2) / 3) + 1;
+
+	unsigned char* buffer = new unsigned char[size + 1];
+
+	for (int x = 0; x < size; ++x)
 	{
-		cout << hex << setw(2) << setfill('0') << uppercase << (int)pBuffer[i] << " ";
+		buffer[x] = (BYTE)strtol(fakePacketBuffer + x * 3, NULL, 16);
 	}
 
-	cout << endl;
+	Analyzer::originalSendPacket(buffer, size);
 
-	cout << "*************************************************" << endl;
 
-	Analyzer::originalSendPacket(pBuffer, bufferLength);
+	if (buffer)
+		delete[]buffer;
 }
 
-void __cdecl Faker::fakeHandlePacket(unsigned short opcode, unsigned char* pBuffer) {
+void __cdecl Faker::fakeHandlePacket(unsigned char* pBuffer) {
+	unsigned short opcode = *reinterpret_cast<unsigned short*>(pBuffer);
+
 	cout << "receiving fake packet with opcode: " << ">> 0x" << hex << setw(4) << setfill('0') << uppercase << opcode << endl;
 	Analyzer::originalHandlePacket(opcode, pBuffer);
 }

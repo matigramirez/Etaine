@@ -81,6 +81,12 @@
     <ClInclude Include="include\Etaine\Helpers\ImGuiHelper.h">
       <Filter>Header files</Filter>
     </ClInclude>
+    <ClInclude Include="include\Etaine\Helpers\FileHelper.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Etaine\Packets\Opcode.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Etaine\Helpers\ConsoleHelper.cpp">
@@ -132,6 +138,12 @@
       <Filter>Source files</Filter>
     </ClCompile>
     <ClCompile Include="src\Etaine\Helpers\ImGuiHelper.cpp">
+      <Filter>Source files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Etaine\Helpers\FileHelper.cpp">
+      <Filter>Source files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Etaine\Packets\Opcode.cpp">
       <Filter>Source files</Filter>
     </ClCompile>
   </ItemGroup>

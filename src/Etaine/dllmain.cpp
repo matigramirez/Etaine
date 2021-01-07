@@ -3,11 +3,13 @@
 #include <thread>
 #include <Etaine/Analyzer.h>
 #include <Etaine/Helpers/ImGuiHelper.h>
+#include <Etaine/Helpers/FileHelper.h>
 
 DWORD WINAPI MainThread(LPVOID lpReserved)
 {
     ImGuiHelper::Initialize();
     Analyzer::Initialize();
+    //FileHelper::Initialize();
 
     return TRUE;
 }

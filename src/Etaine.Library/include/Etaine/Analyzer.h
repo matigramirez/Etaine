@@ -5,6 +5,7 @@
 #include <vector> 
 #include <string>
 #include "Packets/Packet.h"
+#include "Packets/Opcode.h"
 
 // Definition for the game's original send packet function
 typedef void(__cdecl* _sendPacket)(unsigned char* buffer, unsigned int bufferLength);
@@ -35,6 +36,8 @@ public:
 	static bool LogReceived;
 	static bool Active;
 	static void __cdecl ClearPackets();
+	static std::vector<unsigned short> IgnoredOpcodes;
+	static std::vector<Opcode*> LabeledOpcodes;
 
 private:
 	/// <summary>

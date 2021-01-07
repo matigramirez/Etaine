@@ -16,8 +16,6 @@
 
 using namespace std;
 
-#define WINDOW_NAME "Dear ImGui DirectX9 Example"
-
 typedef long(__stdcall* EndScene)(LPDIRECT3DDEVICE9);
 typedef LRESULT(CALLBACK* WNDPROC)(HWND, UINT, WPARAM, LPARAM);
 
@@ -37,6 +35,20 @@ void InitImGui(LPDIRECT3DDEVICE9 pDevice)
 	ImGui_ImplDX9_Init(pDevice);
 }
 
+
+void CopySelectedPacketsToClipboard()
+{
+	ImGui::LogToClipboard();
+
+	for (size_t i = 0; i < Analyzer::Packets.size(); i++)
+	{
+		if (Analyzer::PacketSelection[i])
+			ImGui::LogText(Analyzer::Packets[i].c_str());
+	}
+
+	ImGui::LogFinish();
+}
+
 bool init = false;
 bool show = false;
 long __stdcall hkEndScene(LPDIRECT3DDEVICE9 pDevice)
@@ -47,19 +59,30 @@ long __stdcall hkEndScene(LPDIRECT3DDEVICE9 pDevice)
 		init = true;
 	}
 
-
-	if (GetAsyncKeyState(VK_F5) & 1) {
+	if (GetAsyncKeyState(VK_F1) & 1) {
 		show = !show;
 	}
 
-	//if (GetAsyncKeyState(VK_END)) {
-	//	kiero::shutdown();
-	//	return 0;
-	//}
+	if (GetAsyncKeyState(VK_F2) & 1) {
+		Analyzer::Active = !Analyzer::Active;
+	}
+
+	if (GetAsyncKeyState(VK_F3) & 1) {
+		if (Analyzer::DisplayType == 2)
+		{
+			Analyzer::DisplayType = 0;
+		}
+		else {
+			Analyzer::DisplayType++;
+		}
+	}
+
+	if (GetAsyncKeyState(VK_F11) & 1) {
+		Analyzer::ClearPackets();
+	}
+
 
 	if (show) {
-
-
 		ImGui_ImplDX9_NewFrame();
 		ImGui_ImplWin32_NewFrame();
 		ImGui::NewFrame();
@@ -107,8 +130,6 @@ long __stdcall hkEndScene(LPDIRECT3DDEVICE9 pDevice)
 			sStream << endl;
 
 			string parsedPacket = sStream.str();
-
-			//ImGui::Text(s.c_str());
 
 			if (ImGui::Selectable(parsedPacket.c_str(), Analyzer::PacketSelection[i]))
 			{
@@ -180,47 +201,42 @@ long __stdcall hkEndScene(LPDIRECT3DDEVICE9 pDevice)
 		ImGui::Checkbox("Log Received", &Analyzer::LogReceived);
 
 
-		static char fakePacketBuffer[2048] = "";
-		static char parsedFakePacketBuffer[2048] = "";
+		static char fakePacketBuffer[200] = "";
 		ImGui::InputText("", fakePacketBuffer, IM_ARRAYSIZE(fakePacketBuffer));
 		ImGui::SameLine();
 
-		if (ImGui::Button("Fake Send (pending)")) {
-			//stringstream ss;
-			//ss << fakePacketBuffer;
-
-			//string temp = ss.str();
-			//unsigned char* val = new unsigned char[temp.length() + 1];
-			//strcpy((char*)val, temp.c_str());
-
-			//for (size_t i = 0; i < temp.length(); i++)
-			//{
-			//	cout << val[i];
-			//}
-
-			//cout << endl;
-
-			Faker::fakeSendPacket(Analyzer::InOutPackets[0]->Buffer, Analyzer::InOutPackets[0]->Length);
+		if (ImGui::Button("Fake Send")) {
+			Faker::fakeSendPacket(fakePacketBuffer);
 		}
 
-		ImGui::SameLine();
-		ImGui::Button("Fake Receive (pending)");
-		//ImGui::InputText("", parsedFakePacketBuffer, IM_ARRAYSIZE(parsedFakePacketBuffer));
-
-
-		//// START: String version
-
-		//auto size = Analyzer::Packets.size();
-
-		//for (int i = 0; i < size; i++) {
-		//	ImGui::Text(Analyzer::Packets[i].c_str());
+		//ImGui::SameLine();
+		//if (ImGui::Button("Fake Receive (pending)")) {
 		//}
 
-		//for (int i = size - 1; i >= 0; i--) {
-		//	ImGui::Text(Analyzer::Packets[i].c_str());
+		// Ingored po codes
+		//ImGui::BeginChild("Ignored OPCodes", ImVec2(ImGui::GetWindowContentRegionWidth() / 2, 260), false, window_flags);
+		//ImGui::Text("Ignored OP Codes");
+
+		//for (size_t i = 0; i < Analyzer::IgnoredOpcodes.size(); i++)
+		//{
+		//	cout << Analyzer::IgnoredOpcodes[i] << endl;
+
+		//	ImGui::Selectable(reinterpret_cast<char*>(Analyzer::IgnoredOpcodes[i]));
+		//	//ImGui::Selectable("test");
 		//}
 
-		//// END: String version
+		//ImGui::SameLine();
+
+		//static char newIngoredOpcode[200] = "";
+		//ImGui::InputText("", newIngoredOpcode, IM_ARRAYSIZE(newIngoredOpcode));
+		//ImGui::SameLine();
+
+		//ImGui::SameLine();
+		//ImGui::Button("Add New");
+
+
+		//ImGui::EndChild();
+
 
 		ImGui::EndChild();
 

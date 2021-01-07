@@ -1,10 +1,8 @@
 # Etaine
 
-Etaine is a Shaiya packet Analyzer for Episode 8.
-If supplied with the right addresses it can work on Episode 4 and probably 6 aswell.
-Episode 1 can be supported by modifying the function and hook definitions.
+Etaine is a Shaiya packet analyzer tool which provides a simple way to display incoming and outgoing game.exe packets and send fake packets to the game server.
 
-# Pre Requirements
+# Prerequisites
 * DirectX Software Development Kit June 2010. Can be downloaded [here](https://www.microsoft.com/en-us/download/details.aspx?id=6812). Install it to the default folder, which is `C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)`.
 
 # Build
@@ -21,3 +19,11 @@ Press F5 to show packet window.
 ## Via DLL injection on game start up
 TBD
 
+# Hotkeys
+`F1` - Toggle tool display  
+`F2` - Toggle packet activation (Start/Stop reading packets)  
+`F3` - Cycle through packet data display type (Hex -> Decimal -> ASCII)
+`F11` - Clear the packet list
+
+# Docs
+To learn more about how this tool works and how it can be used with unsupported game.exe's, please refer to the documentation.

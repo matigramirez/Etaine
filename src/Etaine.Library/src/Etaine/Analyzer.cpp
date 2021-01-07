@@ -13,33 +13,33 @@ using namespace std;
 // When hooking Ep1 functions, the receive packet function isn't needed because the handle packet function includes
 // the length of the packet. This means that the definition of the function needs to change so this addresses won't
 // work unless the functions are defined properly
-DWORD sendPacketAddressEp1 = 0x00549C10;
-DWORD handlePacketAddressEp1 = 0x0054D560;
+DWORD sendPacketAddressEp1v1 = 0x00549C10;
+DWORD handlePacketAddressEp1v1 = 0x0054D560;
 
 // Episode 4 function addresses
-DWORD sendPacketAddressEp4 = 0x00585640;
-DWORD receivePacketAddressEp4 = 0x004010E0;
-DWORD handlePacketAddressEp4 = 0x00582E10;
+DWORD sendPacketAddressEp4v1 = 0x00585640;
+DWORD receivePacketAddressEp4v1 = 0x004010E0;
+DWORD handlePacketAddressEp4v1 = 0x00582E10;
 
 // Episode 6 function addresses
-DWORD sendPacketAddressEp6 = 0x005EA9A0;
-DWORD receivePacketAddressEp6 = 0x00401080;
-DWORD handlePacketAddressEp6 = 0x005F1E10;
+DWORD sendPacketAddressEp6v1 = 0x005EA9A0;
+DWORD receivePacketAddressEp6v1 = 0x00401080;
+DWORD handlePacketAddressEp6v1 = 0x005F1E10;
 
 // Episode 8 function addresses
-DWORD sendPacketAddressEp8 = 0x00661020;
-DWORD receivePacketAddressEp8 = 0x00401110;
-DWORD handlePacketAddressEp8 = 0x006687B0;
+DWORD sendPacketAddressEp8v1 = 0x00661020;
+DWORD receivePacketAddressEp8v1 = 0x00401110;
+DWORD handlePacketAddressEp8v1 = 0x006687B0;
 
 // Shaiya EG function addresses
-DWORD sendPacketAddressEG = 0x00676640;
-DWORD receivePacketAddressEG = 0x00401100;
-DWORD handlePacketAddressEG = 0x0067DF90;
+DWORD sendPacketAddressEGvJan2021 = 0x00676640;
+DWORD receivePacketAddressEGvJan2021 = 0x00401100;
+DWORD handlePacketAddressEGvJan2021 = 0x0067DF90;
 
 // Define starting addresses of the game's functions
-_sendPacket Analyzer::originalSendPacket = (_sendPacket)(sendPacketAddressEp8);
-_receivePacket Analyzer::originalReceivePacket = (_receivePacket)(receivePacketAddressEp8);
-_handlePacket Analyzer::originalHandlePacket = (_handlePacket)(handlePacketAddressEp8);
+_sendPacket Analyzer::originalSendPacket = (_sendPacket)(sendPacketAddressEp8v1);
+_receivePacket Analyzer::originalReceivePacket = (_receivePacket)(receivePacketAddressEp8v1);
+_handlePacket Analyzer::originalHandlePacket = (_handlePacket)(handlePacketAddressEp8v1);
 
 vector<Packet*> Analyzer::InOutPackets = vector<Packet*>();
 

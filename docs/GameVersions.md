@@ -1,6 +1,6 @@
 # Game.exe versions
 ## Episode 1
-### Version 1 (probably unique)
+### Version 1 (possibly unique) - [`game.ep1.v1.exe`](https://github.com/matigramirez/Etaine/blob/main/game%20versions/game.ep1.v1.exe)
 Originally from [here](https://www.elitepvpers.com/forum/shaiya-pserver-guides-releases/3808202-tiny-release-shaiya-episode-1-game-client-light-darkness.html)
 
 SendPacket = `0x00549C10`  
@@ -14,7 +14,7 @@ typedef void(__cdecl* _handlePacket)(unsigned short packetType, unsigned char* b
 ```
 
 ## Episode 4
-### Version 1
+### Version 1 - [`game.ep4.v1.exe`](https://github.com/matigramirez/Etaine/blob/main/game%20versions/game.ep4.v1.exe)
 Originally from [here](https://www.elitepvpers.com/forum/shaiya-pserver-guides-releases/4137180-shaiya-us-clients.html)
 
 SendPacket = `0x00585640`  
@@ -31,13 +31,12 @@ typedef void(__cdecl* _handlePacket)(unsigned short opcode, unsigned char* buffe
 ```
 
 ## Episode 6
-### Version 1
+### Version 1 - [`game.ep6.v1.exe`](https://github.com/matigramirez/Etaine/blob/main/game%20versions/game.ep6.v1.exe)
 This game.exe was provided by *Bowie*, it's supposed to be the normal ep6 game.exe everyone uses which by default has a size of ~32mb. Bowie removed all the bloat from it, resulting in a much smaller game.exe.  
 
 SendPacket = `0x005EA9A0`  
 ReceivePacket = `0x00401080`  
 HandlePacket = `0x005F1E10`  
-
 
 **Prototypes**
 ```cpp
@@ -48,8 +47,11 @@ typedef void(__cdecl* _receivePacket)(unsigned char* buffer, int bufferLength);
 typedef void(__cdecl* _handlePacket)(unsigned short opcode, unsigned char* buffer);
 ```
 
+### Version 2 - [`game.ep6.v2.exe`](https://github.com/matigramirez/Etaine/blob/main/game%20versions/game.ep6.v2.exe)
+**TBD**
+
 ## Episode 8
-### Version 1
+### Version 1 - [`game.ep8.v1.exe`](https://github.com/matigramirez/Etaine/blob/main/game%20versions/game.ep8.v1.exe)
 Originally from [here](https://www.elitepvpers.com/forum/shaiya-pserver-guides-releases/4137555-shaiya-us-unpack-ep8-game-updater-exe.html)
 
 SendPacket = `0x00661020`  
@@ -71,7 +73,7 @@ Bypassed EterniaGames Shaiya game.exe. EG's game.exe change regularly so these a
 
 *NOTE: EG's game.exe is different to the rest because when reading the dissasembly, the addresses can be found but they will change at runtime. This doesn't happen with any other game.exe, only with this one, thus, the addresses must be found by dissasemblying the game while it's running.*
 
-### January 2021 Version
+### January 2021 Version - [`game.ep8.EG-January2021.exe`](https://github.com/matigramirez/Etaine/blob/main/game%20versions/game.ep8.EG-January2021.exe)
 SendPacket = `0x00676640`  
 ReceivePacket = `0x00401100`  
 HandlePacket = `0x0067DF90`  

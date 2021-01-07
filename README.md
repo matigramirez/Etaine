@@ -22,7 +22,7 @@ TBD
 # Hotkeys
 `F1` - Toggle tool display  
 `F2` - Toggle packet activation (Start/Stop reading packets)  
-`F3` - Cycle through packet data display type (Hex -> Decimal -> ASCII)
+`F3` - Cycle through packet data display type (Hex -> Decimal -> ASCII)  
 `F11` - Clear the packet list
 
 # Docs

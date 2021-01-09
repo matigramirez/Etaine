@@ -94,7 +94,9 @@ long __stdcall hkEndScene(LPDIRECT3DDEVICE9 pDevice)
 		ImGuiWindowFlags window_flags = ImGuiWindowFlags_HorizontalScrollbar;
 		ImGui::BeginChild("Packets", ImVec2(ImGui::GetWindowContentRegionWidth(), 260), false, window_flags);
 
-		for (int i = 0; i < Analyzer::InOutPackets.size(); i++) {
+		const int size = Analyzer::InOutPackets.size();
+
+		for (int i = size - 1; i >= 0; i--) {
 			stringstream sStream;
 
 			sStream << Analyzer::InOutPackets[i]->Type << ">> 0x" << hex << setw(4) << setfill('0') << uppercase << Analyzer::InOutPackets[i]->Opcode << " ";

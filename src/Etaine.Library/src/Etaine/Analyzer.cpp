@@ -26,20 +26,20 @@ DWORD sendPacketAddressEp6v1 = 0x005EA9A0;
 DWORD receivePacketAddressEp6v1 = 0x00401080;
 DWORD handlePacketAddressEp6v1 = 0x005F1E10;
 
-// Episode 8 function addresses
+// Episode 8 v1 function addresses
 DWORD sendPacketAddressEp8v1 = 0x00661020;
 DWORD receivePacketAddressEp8v1 = 0x00401110;
 DWORD handlePacketAddressEp8v1 = 0x006687B0;
 
-// Shaiya EG function addresses
-DWORD sendPacketAddressEGvJan2021 = 0x00676640;
-DWORD receivePacketAddressEGvJan2021 = 0x00401100;
-DWORD handlePacketAddressEGvJan2021 = 0x0067DF90;
+// Episode 8 v2 function addresses
+DWORD sendPacketAddressEp8v2 = 0x00676640;
+DWORD receivePacketAddressEp8v2 = 0x00401100;
+DWORD handlePacketAddressEp8v2 = 0x0067DF90;
 
 // Define starting addresses of the game's functions
-_sendPacket Analyzer::originalSendPacket = (_sendPacket)(sendPacketAddressEp8v1);
-_receivePacket Analyzer::originalReceivePacket = (_receivePacket)(receivePacketAddressEp8v1);
-_handlePacket Analyzer::originalHandlePacket = (_handlePacket)(handlePacketAddressEp8v1);
+_sendPacket Analyzer::originalSendPacket = (_sendPacket)(sendPacketAddressEp6v1);
+_receivePacket Analyzer::originalReceivePacket = (_receivePacket)(receivePacketAddressEp6v1);
+_handlePacket Analyzer::originalHandlePacket = (_handlePacket)(handlePacketAddressEp6v1);
 
 vector<Packet*> Analyzer::InOutPackets = vector<Packet*>();
 
@@ -49,7 +49,7 @@ vector<bool> Analyzer::PacketSelection = vector<bool>();
 
 int Analyzer::DisplayType = 0;
 
-unsigned short Analyzer::MaxPacketCount = 50;
+unsigned short Analyzer::MaxPacketCount = 100;
 
 bool Analyzer::LogSent = true;
 bool Analyzer::LogReceived = true;
@@ -77,7 +77,7 @@ void __cdecl Analyzer::Initialize()
 	DetourTransactionCommit();
 
 	// Create console to log packets
-	ConsoleHelper::CreateConsole();
+	//ConsoleHelper::CreateConsole();
 }
 
 

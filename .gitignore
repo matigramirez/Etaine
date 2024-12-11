@@ -1,3 +1,6 @@
 .vs/
 Debug
 Release
+/src/Etaine/vcpkg_installed
+/src/Etaine.Library/vcpkg_installed
+/vcpkg_installed/x86-windows

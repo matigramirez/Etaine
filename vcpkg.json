@@ -3,6 +3,8 @@
   "version-string": "1.0.0",
   "dependencies": [
     "detours",
-    "directxsdk"
-  ]
+    "directxsdk",
+    "imgui"
+  ],
+  "builtin-baseline": "65be7019941e1401e02daaba0738cab2c8a4a355"
 }

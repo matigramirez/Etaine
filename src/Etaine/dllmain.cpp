@@ -1,17 +1,17 @@
-#include "pch.h"
+#include "framework.h"
 #include <iostream>
 #include <thread>
-#include <Etaine/Analyzer.h>
-#include <Etaine/Helpers/ImGuiHelper.h>
-#include <Etaine/Helpers/FileHelper.h>
+#include "Analyzer.h"
+#include "Helpers\ImGuiHelper.h"
+#include "Helpers\FileHelper.h"
 
 DWORD WINAPI MainThread(LPVOID lpReserved)
 {
-    ImGuiHelper::Initialize();
-    Analyzer::Initialize();
-    //FileHelper::Initialize();
+	ImGuiHelper::Initialize();
+	Analyzer::Initialize();
+	//FileHelper::Initialize();
 
-    return TRUE;
+	return TRUE;
 }
 
 /// <summary>
@@ -22,20 +22,20 @@ DWORD WINAPI MainThread(LPVOID lpReserved)
 /// <param name="lpReserved"></param>
 /// <returns></returns>
 BOOL APIENTRY DllMain(HMODULE hModule,
-                      DWORD  ul_reason_for_call,
-                      LPVOID lpReserved)
+	DWORD  ul_reason_for_call,
+	LPVOID lpReserved)
 {
-    std::thread newThread;
-    switch (ul_reason_for_call)
-    {
-    case DLL_PROCESS_ATTACH:
-        DisableThreadLibraryCalls(hModule);
-        CreateThread(nullptr, 0, MainThread, hModule, 0, nullptr);
-        break;
-    case DLL_THREAD_ATTACH:
-    case DLL_THREAD_DETACH:
-    case DLL_PROCESS_DETACH:
-        break;
-    }
-    return TRUE;
+	std::thread newThread;
+	switch (ul_reason_for_call)
+	{
+	case DLL_PROCESS_ATTACH:
+		DisableThreadLibraryCalls(hModule);
+		CreateThread(nullptr, 0, MainThread, hModule, 0, nullptr);
+		break;
+	case DLL_THREAD_ATTACH:
+	case DLL_THREAD_DETACH:
+	case DLL_PROCESS_DETACH:
+		break;
+	}
+	return TRUE;
 }

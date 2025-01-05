@@ -1,11 +1,9 @@
 #pragma once
-#ifndef Etaine_ANALYZER_H
-#define Etaine_ANALYZER_H
 
 #include <vector> 
 #include <string>
-#include "Packets/Packet.h"
-#include "Packets/Opcode.h"
+#include "Packets\Packet.h"
+#include "Packets\Opcode.h"
 
 // Definition for the game's original send packet function
 typedef void(__cdecl* _sendPacket)(unsigned char* buffer, unsigned int bufferLength);
@@ -62,5 +60,3 @@ private:
 	/// <returns></returns>
 	static void __cdecl handlePacketHook(unsigned short opcode, unsigned char* buffer);
 };
-
-#endif

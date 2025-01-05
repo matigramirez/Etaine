@@ -4,12 +4,12 @@
 #include <directxsdk/d3dx9.h>
 #include "kiero/kiero.h"
 #include "kiero/minhook/include/MinHook.h"
-#include "imgui/imgui.h"
-#include "imgui/imgui_impl_win32.h"
-#include "imgui/imgui_impl_dx9.h"
-#include <Etaine/Helpers/ImGuiHelper.h>
-#include <Etaine/Analyzer.h>
-#include <Etaine/Faker.h>
+#include "imgui.h"
+#include "imgui_impl_win32.h"
+#include "imgui_impl_dx9.h"
+#include <Helpers/ImGuiHelper.h>
+#include <Analyzer.h>
+#include <Faker.h>
 #include <iostream>
 #include <iomanip>
 #include <sstream>
@@ -92,7 +92,7 @@ long __stdcall hkEndScene(LPDIRECT3DDEVICE9 pDevice)
 		ImGui::BeginChild("Scrolling");
 
 		ImGuiWindowFlags window_flags = ImGuiWindowFlags_HorizontalScrollbar;
-		ImGui::BeginChild("Packets", ImVec2(ImGui::GetWindowContentRegionWidth(), 260), false, window_flags);
+		ImGui::BeginChild("Packets", ImVec2(ImGui::GetWindowContentRegionMax().x, 260), false, window_flags);
 
 		const int size = Analyzer::InOutPackets.size();
 
@@ -209,6 +209,7 @@ long __stdcall hkEndScene(LPDIRECT3DDEVICE9 pDevice)
 
 		if (ImGui::Button("Fake Send")) {
 			Faker::fakeSendPacket(fakePacketBuffer);
+			std::memset(fakePacketBuffer, '\0', sizeof(fakePacketBuffer));
 		}
 
 		//ImGui::SameLine();

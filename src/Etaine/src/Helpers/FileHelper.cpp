@@ -1,6 +1,6 @@
-#include <Etaine/Helpers/FileHelper.h>
-#include <Etaine/Packets/Opcode.h>
-#include <Etaine/Analyzer.h>
+#include <Helpers/FileHelper.h>
+#include <Packets/Opcode.h>
+#include <Analyzer.h>
 #include <string>
 #include <vector>
 #include <iostream>

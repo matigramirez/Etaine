@@ -1,4 +1,4 @@
-#include <Etaine/Packets/Opcode.h>
+#include "Packets/Opcode.h"
 
 Opcode::Opcode(unsigned short value, char* label) {
 	this->Value = value;

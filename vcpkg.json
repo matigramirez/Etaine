@@ -2,9 +2,19 @@
   "name": "etaine",
   "version-string": "1.0.0",
   "dependencies": [
-    "detours",
-    "directxsdk",
-    "imgui"
+    {
+      "name": "detours",
+      "platform": "windows"
+    },
+    {
+      "name": "directxsdk",
+      "platform": "windows"
+    },
+    {
+      "name": "imgui",
+      "platform": "windows",
+      "features": [ "dx9-binding", "win32-binding" ]
+    }
   ],
   "builtin-baseline": "65be7019941e1401e02daaba0738cab2c8a4a355"
 }

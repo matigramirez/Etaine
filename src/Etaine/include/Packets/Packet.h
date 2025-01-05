@@ -1,6 +1,4 @@
 #pragma once
-#ifndef Etaine_PACKETS_PACKET_H
-#define Etaine_PACKETS_PACKET_H
 #include <vector>
 
 class Packet
@@ -25,5 +23,3 @@ public:
 private:
 
 };
-
-#endif

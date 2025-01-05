@@ -8,4 +8,3 @@ public:
 
 	Opcode(unsigned short value, char* label);
 };
-

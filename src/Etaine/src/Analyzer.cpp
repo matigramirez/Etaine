@@ -1,6 +1,6 @@
-#include <Etaine\Analyzer.h>
-#include <Etaine\Helpers\ConsoleHelper.h>
-#include <Etaine\Packets\Packet.h>
+#include <Analyzer.h>
+#include <Helpers/ConsoleHelper.h>
+#include <Packets/Packet.h>
 #include <iostream>
 #include <iomanip>
 #include <sstream>

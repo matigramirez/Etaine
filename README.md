@@ -3,7 +3,8 @@
 Etaine is a Shaiya packet analyzer tool which provides a simple way to display incoming and outgoing game.exe packets and send fake packets to the game server.
 
 # Prerequisites
-* DirectX Software Development Kit June 2010. Can be downloaded [here](https://www.microsoft.com/en-us/download/details.aspx?id=6812). Install it to the default folder, which is `C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)`.
+* Visual Studio 2022.
+* Vcpkg.
 
 # Build
 Build for x86 version.

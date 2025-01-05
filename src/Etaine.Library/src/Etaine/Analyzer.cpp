@@ -4,7 +4,7 @@
 #include <iostream>
 #include <iomanip>
 #include <sstream>
-#include <detours.h>
+#include <detours/detours.h>
 #include <string>
 
 using namespace std;

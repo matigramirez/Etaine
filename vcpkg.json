@@ -1,0 +1,8 @@
+{
+  "name": "etaine",
+  "version-string": "1.0.0",
+  "dependencies": [
+    "detours",
+    "directxsdk"
+  ]
+}

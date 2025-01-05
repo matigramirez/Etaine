@@ -1,13 +1,13 @@
 # Etaine
 
-Etaine is a Shaiya packet analyzer tool which provides a simple way to display incoming and outgoing game.exe packets and send fake packets to the game server.
+Etaine is a quick n' dirty Shaiya packet analyzer tool which provides a simple way to display incoming and outgoing game.exe packets and send fake packets to the game server.
 
 # Prerequisites
-* Visual Studio 2022.
-* Vcpkg.
+* Visual Studio 2022
+* vcpkg
 
 # Build
-Build for x86 version.
+Build for x86 platform
 
 # Run
 ## Via Cheat Engine (CE)
@@ -16,9 +16,6 @@ CE can be downloaded [here](https://cheatengine.org/downloads.php).
 Run CE => Open process. Find game.exe => Memory view => Tools => Inject DLL (Ctrl + i) => Etaine.dll
 
 Press F5 to show packet window.
-
-## Via DLL injection on game start up
-TBD
 
 # Hotkeys
 `F1` - Toggle tool display  
